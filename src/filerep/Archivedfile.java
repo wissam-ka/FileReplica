@@ -108,6 +108,7 @@ public class Archivedfile extends FileComp
                             }
                             frl.add(stemp2);
                             filetable2.get(si).get(i).remove(jit);
+                            jit--;
                         }   
                     }   
                 }
