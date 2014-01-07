@@ -31,13 +31,14 @@ public class FileRep extends JFrame  implements ActionListener
     DataInputStream dr=new DataInputStream(System.in);
     Path path;
     String pastr,sstr;
-    JButton check,comp,arch,clearF;
+    JButton check,comp,arch,clearF,archv2;
     Container con;
     JTextField jtx,jtx1;
     FileSearch fs;
     TextArea ta;
     Checkbox ch_n,ch_s,ch_bl,ch_ex;
     Label l1,l2;
+    boolean archive_type;
    
     
     FileRep()
@@ -66,18 +67,23 @@ public class FileRep extends JFrame  implements ActionListener
         check.addActionListener(this);
         check.setBounds(90,135,100,30);
         con.add(check);
-        arch=new JButton(" Find Replica");
-        arch.addActionListener(this);
-        arch.setBounds(90,180,220,30);
-        con.add(arch);
+        
         comp=new JButton("find");
         comp.addActionListener(this);
         comp.setBounds(210,135,100,30);
         con.add(comp);
         clearF=new JButton("Clear");
         clearF.addActionListener(this);
-        clearF.setBounds(150,450,150,30);
+        clearF.setBounds(150,470,150,30);
         con.add(clearF);
+        arch=new JButton(" Find Replica with *.ext");
+        arch.addActionListener(this);
+        arch.setBounds(90,180,220,30);
+        con.add(arch);
+        archv2=new JButton("Find Replica without *.ext");
+        archv2.addActionListener(this);
+        archv2.setBounds(90,220,220,30);
+        con.add(archv2);
         
         jtx=new JTextField(15);
         jtx.setBounds(90,10,250,40);
@@ -87,7 +93,7 @@ public class FileRep extends JFrame  implements ActionListener
         jtx1.setBounds(90,80,250,40);
 
         ta=new TextArea(10,30);
-        ta.setBounds(20,235,400,200);
+        ta.setBounds(20,255,400,200);
         con.add(ta);
         
         l1=new Label("file name:");
@@ -128,63 +134,37 @@ public class FileRep extends JFrame  implements ActionListener
     {
         FileRep fr=new FileRep();
         fr.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
-        
-        // TODO code application logic here
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(ActionEvent ae)
+    {
         
         if(ae.getSource()==check)
         {
-            //pastr=jtx.getText();
-            //jtx1.setText(pastr);
             openFile1();
         }
         if(ae.getSource()==comp)
         {
-            
-            
-            try
-           {
-                  
-            //File fd=new File(jtx1.getText()+"\\"+jtx.getText());
-             ta.setText("searching........\n");
-            System.out.println(jtx1.getText()+"\\"+jtx.getText());
-            fs=new FileSearch (Paths.get(jtx1.getText()+"\\"+jtx.getText()),Paths.get(jtx1.getText()),bgselected());
-            fs.doSearch();
-            lor=fs.searchResults();
-            DispOnta();
-            
-           }
-           catch(Exception e)
-           {
-              ta.setText("error........\n"+e.getMessage()+"   \n"+e.toString()+"\n"+e.getLocalizedMessage()); 
-           }
-            
-               
-          
+            doComp();
         }
         if(ae.getSource()==arch)
         {
-            try
-            {
-                FindRepFile frf=new FindRepFile(jtx1.getText());
-                lor=frf.doSearch();
-                DispOnta();
-            }
-            catch(Exception fe)
-            {
-              ta.setText("error........\n"+fe.getMessage()+"   \n"+fe.toString());  
-            }
-            
+            archive_type=false;
+            doArchive();
         }
         if(ae.getSource()==clearF)
         {
             cleanAllF();
         }
+        if(ae.getSource()==archv2)
+        {
+            archive_type=true;
+            doArchive();
+        }
     }
+    
+    
     public void DispOnta()
     {
         if(lor.isEmpty())
@@ -232,5 +212,35 @@ public class FileRep extends JFrame  implements ActionListener
         ch_n.setState(true);
         ch_s.setState(true);
         ch_ex.setState(false);
+    }
+    private void doComp()
+    {
+        try
+        {               
+            ta.setText("searching........\n");
+            System.out.println(jtx1.getText()+"\\"+jtx.getText());
+            fs=new FileSearch (Paths.get(jtx1.getText()+"\\"+jtx.getText()),Paths.get(jtx1.getText()),bgselected());
+            fs.doSearch();
+            lor=fs.searchResults();
+            DispOnta();
+            
+        }
+        catch(Exception e)
+        {
+            ta.setText("error........\n"+e.getMessage()+"   \n"+e.toString()+"\n"+e.getLocalizedMessage()); 
+        }
+    }
+    private void doArchive()
+    {
+        try
+        {
+            FindRepFile frf=new FindRepFile(jtx1.getText(),archive_type);
+            lor=frf.doSearch();
+            DispOnta();
+        }
+        catch(Exception fe)
+        {
+            ta.setText("error........\n"+fe.getMessage()+"   \n"+fe.toString());  
+        }     
     }
 }

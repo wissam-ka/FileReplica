@@ -76,7 +76,7 @@ public class Archivedfile extends FileComp
     }
     public ArrayList getHashTable()
     {
-        boolean g;
+       // boolean g;
         ArrayList<String> frl=new ArrayList<String>();
         filetable2=filetable1;
          for(String si:filetable2.keySet())
@@ -85,36 +85,45 @@ public class Archivedfile extends FileComp
             for(Long i:filetable2.get(si).keySet())
             {
                 
-                while(filetable2.get(si).get(i).size()>1)
+                frl=tableOrganize(si,i,frl);
+//               
+            }     
+        } 
+        return frl;
+    }
+    
+    public ArrayList<String> tableOrganize(String strKey, long intKey, ArrayList<String> flist)
+    {
+        while(filetable2.get(strKey).get(intKey).size()>1)
                 {
+                    boolean g;
                     String stemp1,stemp2;
-                    stemp1=filetable2.get(si).get(i).get(0);
-                    filetable2.get(si).get(i).remove(0);
+                    stemp1=filetable2.get(strKey).get(intKey).get(0);
+                    filetable2.get(strKey).get(intKey).remove(0);
                     File ftemp1,ftemp2;
                     ftemp1=new File(stemp1);
                     g=true;
-                    for(int jit=0;jit<filetable2.get(si).get(i).size();jit++)
+                    for(int jit=0;jit<filetable2.get(strKey).get(intKey).size();jit++)
                     {
-                        stemp2=filetable2.get(si).get(i).get(jit);
+                        stemp2=filetable2.get(strKey).get(intKey).get(jit);
                        
                         ftemp2=new File(stemp2);
                         if(byteLevelCompare(ftemp1,ftemp2))
                         {
                             if(g)
                             {
-                                frl.add("-------"+ftemp1.getName()+"-----------");
-                                frl.add(stemp1);
+                                flist.add("-------"+ftemp1.getName()+"-----------");
+                                flist.add(stemp1);
                                 g=false;
                             }
-                            frl.add(stemp2);
-                            filetable2.get(si).get(i).remove(jit);
+                            flist.add(stemp2);
+                            filetable2.get(strKey).get(intKey).remove(jit);
                             jit--;
                         }   
                     }   
                 }
-            }     
-        } 
-        return frl;
+        return flist;
+        
     }
        
 }

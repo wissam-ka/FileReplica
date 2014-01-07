@@ -19,10 +19,13 @@ public class FindRepFile extends FileComp
     String pPath;
     String exPath;
     long sizePath;
+    boolean w_woutExt;
     Archivedfile archf=new Archivedfile();
-    FindRepFile(String p)
+    Archivedfilev2 archf2=new Archivedfilev2();
+    FindRepFile(String p,boolean w_woutExt)
     {
         lof.add(p);
+        this.w_woutExt=w_woutExt;
     }
     
     
@@ -35,9 +38,15 @@ public class FindRepFile extends FileComp
             fileName1(lof.get(coun));
             coun++;
         }
-        //archf.gettable();
+        if(w_woutExt)
+        {
+            return archf2.getHashTable(); 
+        }
+        else
+        {
+            return archf.getHashTable();
+        }
        
-        return archf.getHashTable();
     }
     public void fileName1(String sp)
     {
@@ -50,13 +59,25 @@ public class FindRepFile extends FileComp
             if(ff.isDirectory())
             {
                 lof.add(pPath);
+                
             }
             else
             {
-                exPath=getexten(ff);
                 sizePath=ff.length();
-                archf.add2Map(exPath, sizePath,pPath);
-            } 
+                if(w_woutExt)
+                {
+                    archf2.add2Map(sizePath,pPath);
+                }
+                else
+                {
+                    exPath=getexten(ff);
+                    archf.add2Map(exPath, sizePath,pPath);
+                }
+                 
+            }
+            
+            
+            
         }
         
     }

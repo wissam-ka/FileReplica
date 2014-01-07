@@ -5,6 +5,8 @@
 package filerep;
 import java.io.*;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
         
 /**
  *
@@ -41,11 +43,13 @@ public class FileComp
     // convert file to byte array
     public byte[] F2B(File f)
     {
+        FileInputStream fis=null;
         byte[] b= new byte[(int)f.length()];
         try
         {
-         FileInputStream fis=new FileInputStream(f)   ;
+         fis=new FileInputStream(f)   ;
          fis.read(b);
+         
         }
         catch(FileNotFoundException e)
         {
@@ -55,6 +59,15 @@ public class FileComp
         {
              System.out.println("Error Reading The File.");
         }
+        finally
+        {
+            try {
+                fis.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FileComp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
        return b; 
     }
   
