@@ -81,7 +81,8 @@ public class FileSearch
                 
                     if(fc.docomp())
                     {
-                        mfl.add(sp+"\\"+s[i]+"       "+ff.length());
+                        //mfl.add(sp+"\\"+s[i]+"       "+ff.length());
+                        mfl.add(sp+"\\"+s[i]);
                     }
               
                
