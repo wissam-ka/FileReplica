@@ -74,6 +74,7 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         comp.addActionListener(this);
         comp.setBounds(210,135,100,30);
         con.add(comp);
+        //comp.set
         clearF=new JButton("Clear");
         clearF.addActionListener(this);
         clearF.setBounds(150,480,150,30);
@@ -100,8 +101,8 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         con.add(ta);
         ta.addKeyListener(this);
         ta.addMouseListener(this);
-        textareat_note=new Label("To open any file press \"crl + the number next to the file's name\"");
-        textareat_note.setBounds(20,445,400,50);
+        textareat_note=new Label("To open any file press \"Crl + Double click the number next to the file's name\"");
+        textareat_note.setBounds(20,445,410,50);
         con.add(textareat_note);
         
         l1=new Label("file name:");
@@ -129,8 +130,8 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         else
         {
             path=Paths.get(jfc.getSelectedFile().getPath());
-            File deee=new File(jfc.getSelectedFile().getPath());
-            jtx.setText(deee.getName());
+            //File deee=new File(jfc.getSelectedFile().getPath());
+            jtx.setText(jfc.getSelectedFile().getPath());
             //path=Paths.get(jtx.getText());
              sstr=""+path.getParent();
           
@@ -232,12 +233,12 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         try
         {               
             ta.setText("searching........\n");
-            System.out.println(jtx1.getText()+"\\"+jtx.getText());
-            fs=new FileSearch (Paths.get(jtx1.getText()+"\\"+jtx.getText()),Paths.get(jtx1.getText()),bgselected());
+            //System.out.println(jtx1.getText()+"\\"+jtx.getText());
+            fs=new FileSearch (Paths.get(jtx.getText()),Paths.get(jtx1.getText()),bgselected());
+           
             fs.doSearch();
             lor=fs.searchResults();
             DispOnta();
-            
         }
         catch(Exception e)
         {

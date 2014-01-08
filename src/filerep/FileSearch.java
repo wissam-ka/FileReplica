@@ -60,10 +60,13 @@ public class FileSearch
     {
         File filar= new File(sp);
         String s[]=filar.list();
-//        for(int i =0;i<s.length;i++)
-//        {
-//            System.out.println(s[i]);
-//        }
+      
+        
+            
+        
+        
+       try
+       {
         for(int i =0;i<s.length;i++)
         {
             File ff=new File(sp+"\\"+s[i]);
@@ -90,6 +93,11 @@ public class FileSearch
             
             
         }
+       }
+       catch(NullPointerException ne)
+       {
+           System.out.println(ne.getMessage());
+       }
         
         
     }

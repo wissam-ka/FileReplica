@@ -116,6 +116,7 @@ public class Archivedfile extends FileComp
                                 flist.add(stemp1);
                                 g=false;
                             }
+                            
                             flist.add(stemp2);
                             filetable2.get(strKey).get(intKey).remove(jit);
                             jit--;
