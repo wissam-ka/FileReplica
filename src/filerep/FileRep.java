@@ -15,13 +15,15 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
  *
  * @author admin
  */
-public class FileRep extends JFrame  implements ActionListener
+public class FileRep extends JFrame  implements ActionListener,MouseListener,KeyListener
 {
 
     /**
@@ -37,8 +39,8 @@ public class FileRep extends JFrame  implements ActionListener
     FileSearch fs;
     TextArea ta;
     Checkbox ch_n,ch_s,ch_bl,ch_ex;
-    Label l1,l2;
-    boolean archive_type;
+    Label l1,l2,textareat_note;
+    boolean archive_type,control_check;
    
     
     FileRep()
@@ -74,7 +76,7 @@ public class FileRep extends JFrame  implements ActionListener
         con.add(comp);
         clearF=new JButton("Clear");
         clearF.addActionListener(this);
-        clearF.setBounds(150,470,150,30);
+        clearF.setBounds(150,480,150,30);
         con.add(clearF);
         arch=new JButton(" Find Replica with *.ext");
         arch.addActionListener(this);
@@ -93,8 +95,14 @@ public class FileRep extends JFrame  implements ActionListener
         jtx1.setBounds(90,80,250,40);
 
         ta=new TextArea(10,30);
+        
         ta.setBounds(20,255,400,200);
         con.add(ta);
+        ta.addKeyListener(this);
+        ta.addMouseListener(this);
+        textareat_note=new Label("To open any file press \"crl + the number next to the file's name\"");
+        textareat_note.setBounds(20,445,400,50);
+        con.add(textareat_note);
         
         l1=new Label("file name:");
         con.add(l1);
@@ -175,7 +183,13 @@ public class FileRep extends JFrame  implements ActionListener
             {
             for(int j=0 ;j<lor.size();j++)
             {
-               ta.append(lor.get(j)+"\n");
+                if(!lor.get(j).startsWith("------"))
+                {
+                   
+                    ta.append("*"+j+"--");
+                   
+                }
+                ta.append(lor.get(j)+"\n");
                
             }
             }
@@ -242,5 +256,90 @@ public class FileRep extends JFrame  implements ActionListener
         {
             ta.setText("error........\n"+fe.getMessage()+"   \n"+fe.toString());  
         }     
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e)
+    {
+        if(e.getButton()==MouseEvent.BUTTON1&&control_check)
+        {
+            openselectedfile();
+        }
+    
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e)
+    {
+        //throw new UnsupportedOperationException("Not supported yet.");
+        if(e.getSource()==ta)
+        {
+            control_check=e.isControlDown();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) 
+    {
+        //throw new UnsupportedOperationException("Not supported yet.");
+         if(e.getSource()==ta)
+        {
+            control_check=e.isControlDown();
+        }  
+    }
+    public String clearStr(String str2cln)
+    {
+        String clean_str="";
+        for(int i=0;i<str2cln.length();i++)
+        {
+            if((str2cln.charAt(i) !='*')&&(str2cln.charAt(i) !='-'))
+            clean_str+=(str2cln.charAt(i));
+        }
+        return clean_str;
+    }
+    
+    public void openselectedfile()
+    {
+        String s;
+        s=ta.getSelectedText();
+        s=clearStr(s);
+        if(s!="")
+        {
+            int list_itr=Integer.parseInt(clearStr(s));
+            try
+            {
+                Process pc = Runtime.getRuntime().exec("cmd.exe /c start "+Paths.get(lor.get(list_itr)));
+            }
+            catch (IOException ex) 
+            {
+                Logger.getLogger(FileRep.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+        
     }
 }
