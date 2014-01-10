@@ -41,6 +41,7 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
     Checkbox ch_n,ch_s,ch_bl,ch_ex;
     Label l1,l2,textareat_note;
     boolean archive_type,control_check;
+    
    
     
     FileRep()
@@ -101,7 +102,7 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         con.add(ta);
         ta.addKeyListener(this);
         ta.addMouseListener(this);
-        textareat_note=new Label("To open any file press \"Crl + Double click the number next to the file's name\"");
+        textareat_note=new Label("For more option press  \"Crl + Double click the number next to the file's name\"");
         textareat_note.setBounds(20,445,410,50);
         con.add(textareat_note);
         
@@ -332,14 +333,9 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         if(s!="")
         {
             int list_itr=Integer.parseInt(clearStr(s));
-            try
-            {
-                Process pc = Runtime.getRuntime().exec("cmd.exe /c start "+Paths.get(lor.get(list_itr)));
-            }
-            catch (IOException ex) 
-            {
-                Logger.getLogger(FileRep.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            FileControlFrame fcf=new FileControlFrame(lor.get(list_itr));
+            fcf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+               
          }
         
     }
