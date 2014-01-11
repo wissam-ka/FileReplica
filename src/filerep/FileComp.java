@@ -17,8 +17,7 @@ public class FileComp
     private File f1,f2;
     private byte[] bf1,bf2;
     FileComp()
-    {
-    }
+    { }
     
     FileComp(File f1,File f2)
     {
@@ -85,6 +84,7 @@ public class FileComp
     public String getexten(File f)
     {
        String s=f.getName();
+       
        if(s.lastIndexOf(".")>0)
        {
               return s.substring(s.lastIndexOf("."));

@@ -19,14 +19,12 @@ public class FileCompDet extends FileComp
         super(f1,f2);
         this.se=se;
     }
-    /////
+
     public boolean docomp()
     {  
-        //resul=true;
         if((se[0]==0)&&(se[1]==0)&&(se[2]==0)&&(se[3]==0))
         {  
             return false;
-           // resul=false;
         }
         if((se[0]==1)&&(!namecomp()))
         {

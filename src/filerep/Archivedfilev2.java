@@ -18,9 +18,11 @@ public class Archivedfilev2 extends FileComp
     private HashMap<Long,ArrayList<String>> filetable1 = new HashMap<Long,ArrayList<String>>(); 
     private HashMap<Long,ArrayList<String>> filetable2 = new HashMap<Long,ArrayList<String>>(); 
     
+  // ik long key size
+    // se list of paths
+    
     public void add2Map(long ik,String se)
-    {
-        
+    { 
             if(filetable1.containsKey(ik))
             {
                 filetable1.get(ik).add(se);
@@ -35,38 +37,26 @@ public class Archivedfilev2 extends FileComp
 
     public void gettable()
     {
-        
-            
             for(Long i:filetable1.keySet())
             {
                 System.out.println(i);
-                //System.out.println(i);
-                
                 for(int i1=0;i1<filetable1.get(i).size();i1++)
                 {
                    System.out.print(filetable1.get(i).get(i1) +"   "); 
                 }
                 System.out.println("");
-
             }
-
             System.out.println();
         }
     
     public ArrayList getHashTable()
     {
-       // boolean g;
         ArrayList<String> frl=new ArrayList<String>();
         filetable2=filetable1;
-         
-           // System.out.println(si);
             for(Long i:filetable2.keySet())
             {
-                
-                frl=tableOrganize(i,frl);
-//               
+                frl=tableOrganize(i,frl);    
             }     
-        
         return frl;
     }
     
@@ -101,7 +91,5 @@ public class Archivedfilev2 extends FileComp
                     }   
                 }
         return flist;
-        
     }
-    
 }

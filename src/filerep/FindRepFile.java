@@ -59,14 +59,10 @@ public class FindRepFile extends FileComp
         File filar= new File(sp);
         
         String s[]=filar.list();
-        
-        //for(String s1:s)
         int i=-1;
         while(true)
         {
             i++;
-            
-            
             try
             {
                 try
@@ -78,8 +74,6 @@ public class FindRepFile extends FileComp
                     System.out.println("                                                 "+sp);
                     continue;
                 }
-                       
-                
             }
             catch(ArrayIndexOutOfBoundsException e)
             {
@@ -89,15 +83,9 @@ public class FindRepFile extends FileComp
             File ff=new File(pPath);
             if(!ff.isHidden())
             {
-//            if(ff.canRead()==true)
-//            {
                 if(ff.isDirectory())
             {
-                
-                
-                    lof.add(pPath);
-                
-                
+                    lof.add(pPath); 
             }
             else
             {
@@ -113,53 +101,7 @@ public class FindRepFile extends FileComp
                 }
                  
             }
-//            }
-//            else
-//            {
-//                System.out.println("file can't read");
-//            }
-            
         }
         }
-//        System.out.println(s.length);
-//        try
-//        {
-//        for(int i =0;i<s.length;i++)
-//        {
-//            pPath=sp+"\\"+s[i];
-//           
-//            File ff=new File(pPath);
-//            if(ff.isDirectory())
-//            {
-//                lof.add(pPath);
-//                
-//            }
-//            else
-//            {
-//                sizePath=ff.length();
-//                if(w_woutExt)
-//                {
-//                    archf2.add2Map(sizePath,pPath);
-//                }
-//                else
-//                {
-//                    exPath=getexten(ff);
-//                    archf.add2Map(exPath, sizePath,pPath);
-//                }
-//                 
-//            }
-//            
-//            
-//            
-//        }
-//        }
-//        catch(NullPointerException ne)
-//        {
-//            System.out.println(ne.getMessage());
-//        }
-        
-    
-   
-    
     }
 }

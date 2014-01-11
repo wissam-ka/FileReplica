@@ -79,24 +79,20 @@ public class FileControlFrame extends JFrame implements ActionListener
     {
            if (java.awt.Desktop.isDesktopSupported ())
            {
-               //String ss=""+Paths.get(path_show.getText()).getParent();
                java.awt.Desktop desktop = java.awt.Desktop.getDesktop ();
                if (desktop.isSupported (java.awt.Desktop.Action.BROWSE))
                {
                    try
                    {
-                       //desktop.browse (new java.net.URI (ss));
-                      
-                        desktop.browse (Paths.get(path_show.getText()).getParent().toUri());
-                        
+                        desktop.browse (Paths.get(path_show.getText()).getParent().toUri());   
                    }
                    catch (java.io.IOException e)
                    {
                        e.printStackTrace ();
                    }
                }
-            }         
-    }
+            }
+      }
     public void fileopen()
     {
         try 
@@ -108,7 +104,8 @@ public class FileControlFrame extends JFrame implements ActionListener
             Logger.getLogger(FileControlFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
             
-    }
+     }
+    
     public void fileDelete()
     {
          File ff=new File(path_show.getText());

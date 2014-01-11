@@ -45,8 +45,7 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
    
     
     FileRep()
-    {
-        
+    {   
         con=getContentPane();
         
         con.setBackground(Color.gray);
@@ -65,7 +64,6 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         con.add(ch_ex);
         ch_ex.setBounds(350,155,150,20);
         
-      //  ch_n.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
         check=new JButton("open");
         check.addActionListener(this);
         check.setBounds(90,135,100,30);
@@ -75,7 +73,7 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         comp.addActionListener(this);
         comp.setBounds(210,135,100,30);
         con.add(comp);
-        //comp.set
+
         clearF=new JButton("Clear");
         clearF.addActionListener(this);
         clearF.setBounds(150,480,150,30);
@@ -116,8 +114,6 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         setSize(500,700);
         
        setVisible(true);
-        
-
     }
     
     public void openFile1()
@@ -131,15 +127,12 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         else
         {
             path=Paths.get(jfc.getSelectedFile().getPath());
-            //File deee=new File(jfc.getSelectedFile().getPath());
             jtx.setText(jfc.getSelectedFile().getPath());
-            //path=Paths.get(jtx.getText());
              sstr=""+path.getParent();
-          
-            
             jtx1.setText(sstr);
         }
     }
+    
     public static void main(String[] args)
     {
         FileRep fr=new FileRep();
@@ -194,7 +187,7 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
                 ta.append(lor.get(j)+"\n");
                
             }
-            ta.append("done\n");
+            ta.append("    Done\n");
             
             }
     }
@@ -236,9 +229,7 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         try
         {               
             ta.setText("searching........\n");
-            //System.out.println(jtx1.getText()+"\\"+jtx.getText());
             fs=new FileSearch (Paths.get(jtx.getText()),Paths.get(jtx1.getText()),bgselected());
-           
             fs.doSearch();
             lor=fs.searchResults();
             DispOnta();
@@ -250,16 +241,25 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
     }
     private void doArchive()
     {
-//        try
-//        {
+        
+       try
+        {
+            File try_open_file =new File(jtx1.getText());
+            if(try_open_file.canRead())
+            {
             FindRepFile frf=new FindRepFile(jtx1.getText(),archive_type);
             lor=frf.doSearch();
             DispOnta();
-//        }
-//        catch(Exception fe)
-//        {
-//            ta.setText("error........\n"+fe.getMessage()+"   \n"+fe.toString());  
-//        }     
+            }
+            else
+            {
+                ta.append("\n No Folder selected");
+            }
+        }
+        catch(Exception fe)
+        {
+            ta.setText("error........\n"+fe.getMessage()+"   \n"+fe.toString());  
+        }     
     }
 
     @Override
@@ -273,34 +273,28 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void mousePressed(MouseEvent e)
+    {    }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void mouseReleased(MouseEvent e) 
+    {    }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void mouseEntered(MouseEvent e) 
+    {    }
 
     @Override
-    public void mouseExited(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void mouseExited(MouseEvent e)
+    {    }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void keyTyped(KeyEvent e)
+    {    }
 
     @Override
     public void keyPressed(KeyEvent e)
     {
-        //throw new UnsupportedOperationException("Not supported yet.");
         if(e.getSource()==ta)
         {
             control_check=e.isControlDown();
@@ -310,12 +304,12 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
     @Override
     public void keyReleased(KeyEvent e) 
     {
-        //throw new UnsupportedOperationException("Not supported yet.");
          if(e.getSource()==ta)
         {
             control_check=e.isControlDown();
         }  
     }
+    
     public String clearStr(String str2cln)
     {
         String clean_str="";
@@ -332,13 +326,11 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         String s;
         s=ta.getSelectedText();
         s=clearStr(s);
-        if(s!="")
+        if(!s.isEmpty())
         {
             int list_itr=Integer.parseInt(clearStr(s));
             FileControlFrame fcf=new FileControlFrame(lor.get(list_itr));
             fcf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-               
          }
-        
     }
 }
