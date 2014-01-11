@@ -72,7 +72,9 @@ public class FileSearch
             File ff=new File(sp+"\\"+s[i]);
             if(ff.isDirectory())
             {
+                
                 lof.add(sp+"\\"+s[i]);
+               
             }
             else
             {
@@ -96,7 +98,7 @@ public class FileSearch
        }
        catch(NullPointerException ne)
        {
-           System.out.println(ne.getMessage());
+           System.out.println(ne.getMessage()+"  "+sp);
        }
         
         

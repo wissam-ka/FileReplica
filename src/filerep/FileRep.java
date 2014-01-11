@@ -194,6 +194,8 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
                 ta.append(lor.get(j)+"\n");
                
             }
+            ta.append("done\n");
+            
             }
     }
 
@@ -248,16 +250,16 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
     }
     private void doArchive()
     {
-        try
-        {
+//        try
+//        {
             FindRepFile frf=new FindRepFile(jtx1.getText(),archive_type);
             lor=frf.doSearch();
             DispOnta();
-        }
-        catch(Exception fe)
-        {
-            ta.setText("error........\n"+fe.getMessage()+"   \n"+fe.toString());  
-        }     
+//        }
+//        catch(Exception fe)
+//        {
+//            ta.setText("error........\n"+fe.getMessage()+"   \n"+fe.toString());  
+//        }     
     }
 
     @Override

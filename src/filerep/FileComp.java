@@ -85,7 +85,14 @@ public class FileComp
     public String getexten(File f)
     {
        String s=f.getName();
-       return s.substring(s.lastIndexOf("."));
+       if(s.lastIndexOf(".")>0)
+       {
+              return s.substring(s.lastIndexOf("."));
+       }
+       else
+       {
+           return "none";
+       }
     }
     // compair two file extentions
     public boolean extencomp()

@@ -33,12 +33,16 @@ public class FindRepFile extends FileComp
     
     public ArrayList doSearch()
     {
+        System.out.println(lof.size());
+        
         int coun=0;
         while(coun<lof.size())
         {
             fileName1(lof.get(coun));
+            
             coun++;
         }
+        
         if(w_woutExt)
         {
             return archf2.getHashTable(); 
@@ -50,19 +54,49 @@ public class FindRepFile extends FileComp
        
     }
     public void fileName1(String sp)
-    {
+   {
+       
         File filar= new File(sp);
+        
         String s[]=filar.list();
-        try
+        
+        //for(String s1:s)
+        int i=-1;
+        while(true)
         {
-        for(int i =0;i<s.length;i++)
-        {
-            pPath=sp+"\\"+s[i];
-           
-            File ff=new File(pPath);
-            if(ff.isDirectory())
+            i++;
+            
+            
+            try
             {
-                lof.add(pPath);
+                try
+                {
+                   String mm=s[i];
+                }
+                catch(NullPointerException npe)
+                {
+                    System.out.println("                                                 "+sp);
+                    continue;
+                }
+                       
+                
+            }
+            catch(ArrayIndexOutOfBoundsException e)
+            {
+                break;
+            }
+            pPath=sp+"\\"+s[i];
+            File ff=new File(pPath);
+            if(!ff.isHidden())
+            {
+//            if(ff.canRead()==true)
+//            {
+                if(ff.isDirectory())
+            {
+                
+                
+                    lof.add(pPath);
+                
                 
             }
             else
@@ -79,18 +113,53 @@ public class FindRepFile extends FileComp
                 }
                  
             }
-            
-            
+//            }
+//            else
+//            {
+//                System.out.println("file can't read");
+//            }
             
         }
         }
-        catch(NullPointerException ne)
-        {
-            System.out.println(ne.getMessage());
-        }
+//        System.out.println(s.length);
+//        try
+//        {
+//        for(int i =0;i<s.length;i++)
+//        {
+//            pPath=sp+"\\"+s[i];
+//           
+//            File ff=new File(pPath);
+//            if(ff.isDirectory())
+//            {
+//                lof.add(pPath);
+//                
+//            }
+//            else
+//            {
+//                sizePath=ff.length();
+//                if(w_woutExt)
+//                {
+//                    archf2.add2Map(sizePath,pPath);
+//                }
+//                else
+//                {
+//                    exPath=getexten(ff);
+//                    archf.add2Map(exPath, sizePath,pPath);
+//                }
+//                 
+//            }
+//            
+//            
+//            
+//        }
+//        }
+//        catch(NullPointerException ne)
+//        {
+//            System.out.println(ne.getMessage());
+//        }
         
-    }
+    
    
     
-    
+    }
 }
