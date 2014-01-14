@@ -5,10 +5,14 @@
 package filerep;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,7 +21,7 @@ import java.util.Map;
 public class Archivedfile extends FileComp
 {
   
-    
+    long filmatc_coun=0;
     
     private HashMap<String,HashMap<Long,ArrayList<String>>> filetable1 = new HashMap<String,HashMap<Long,ArrayList<String>>>(); 
       private HashMap<String,HashMap<Long,ArrayList<String>>> filetable2= new HashMap<String,HashMap<Long,ArrayList<String>>>(); 
@@ -81,11 +85,13 @@ public class Archivedfile extends FileComp
                 frl=tableOrganize(si,i,frl);    
             }     
         } 
+         System.out.println("find allllllll");
         return frl;
     }
     
     public ArrayList<String> tableOrganize(String strKey, long intKey, ArrayList<String> flist)
     {
+        
         while(filetable2.get(strKey).get(intKey).size()>1)
                 {
                     boolean g;
@@ -94,16 +100,36 @@ public class Archivedfile extends FileComp
                     filetable2.get(strKey).get(intKey).remove(0);
                     File ftemp1,ftemp2;
                     ftemp1=new File(stemp1);
+                      // System.out.println("ftemp1.length "+ftemp1.length());
                     g=true;
                     for(int jit=0;jit<filetable2.get(strKey).get(intKey).size();jit++)
                     {
                         stemp2=filetable2.get(strKey).get(intKey).get(jit);
                        
                         ftemp2=new File(stemp2);
-                        if(byteLevelCompare(ftemp1,ftemp2))
+                        boolean choose_byte_com=false;
+                        if(ftemp2.length()<30000000)
                         {
+                            choose_byte_com=byteLevelCompare(ftemp1,ftemp2);
+                        }
+                        else
+                        {
+                            try {
+                                LargeSizeFile lsg=new LargeSizeFile(ftemp1, ftemp2);
+                                choose_byte_com=lsg.byteLevelCompare();
+                            } catch (FileNotFoundException ex) {
+                                Logger.getLogger(Archivedfile.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (IOException ex) {
+                                Logger.getLogger(Archivedfile.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        if(choose_byte_com)
+                        {
+                          //  filmatc_coun++;
+                          //  System.out.println("filmatc_coun   "+filmatc_coun);
                             if(g)
                             {
+                             
                                 flist.add("-------"+ftemp1.getName()+"-----------");
                                 flist.add(stemp1);
                                 g=false;

@@ -9,10 +9,14 @@ package filerep;
  * @author admin
  */
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class Archivedfilev2 extends FileComp
 {
     private HashMap<Long,ArrayList<String>> filetable1 = new HashMap<Long,ArrayList<String>>(); 
@@ -39,7 +43,7 @@ public class Archivedfilev2 extends FileComp
     {
             for(Long i:filetable1.keySet())
             {
-                System.out.println(i);
+               // System.out.println(i);
                 for(int i1=0;i1<filetable1.get(i).size();i1++)
                 {
                    System.out.print(filetable1.get(i).get(i1) +"   "); 
@@ -76,7 +80,23 @@ public class Archivedfilev2 extends FileComp
                         stemp2=filetable2.get(intKey).get(jit);
                        
                         ftemp2=new File(stemp2);
-                        if(byteLevelCompare(ftemp1,ftemp2))
+                       boolean choose_byte_com=false;
+                        if(ftemp2.length()<30000000)
+                        {
+                            choose_byte_com=byteLevelCompare(ftemp1,ftemp2);
+                        }
+                        else
+                        {
+                            try {
+                                LargeSizeFile lsg=new LargeSizeFile(ftemp1, ftemp2);
+                                choose_byte_com=lsg.byteLevelCompare();
+                            } catch (FileNotFoundException ex) {
+                                Logger.getLogger(Archivedfile.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (IOException ex) {
+                                Logger.getLogger(Archivedfile.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        if(choose_byte_com)
                         {
                             if(g)
                             {

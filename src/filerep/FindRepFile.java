@@ -71,7 +71,7 @@ public class FindRepFile extends FileComp
                 }
                 catch(NullPointerException npe)
                 {
-                    System.out.println("                                                 "+sp);
+                    //System.out.println("                                                 "+sp);
                     continue;
                 }
             }

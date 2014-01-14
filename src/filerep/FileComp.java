@@ -48,7 +48,7 @@ public class FileComp
         {
          fis=new FileInputStream(f)   ;
          fis.read(b);
-         
+        
         }
         catch(FileNotFoundException e)
         {
