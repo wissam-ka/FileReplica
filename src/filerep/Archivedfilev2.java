@@ -24,6 +24,14 @@ public class Archivedfilev2 extends FileComp
     
   // ik long key size
     // se list of paths
+    FileRep fr;
+    int file_cont=0;
+
+    public Archivedfilev2(FileRep fr)
+    {
+        this.fr=fr;
+    }
+    
     
     public void add2Map(long ik,String se)
     { 
@@ -100,13 +108,24 @@ public class Archivedfilev2 extends FileComp
                         {
                             if(g)
                             {
+                               
                                 flist.add("-------"+ftemp1.getName()+"-----------");
+                                fr.ta.append("-------"+ftemp1.getName()+"-----------\n");
+                                file_cont++;
                                 flist.add(stemp1);
+                                 fr.ta.append("*"+file_cont+"--"+stemp1+"\n");
+                                 file_cont++;
                                 g=false;
                             }
+                            
+                            
+                                
                             flist.add(stemp2);
+                            fr.ta.append("*"+file_cont+"--"+stemp2+"\n");
+                            file_cont++;
                             filetable2.get(intKey).remove(jit);
                             jit--;
+                            
                         }   
                     }   
                 }

@@ -242,24 +242,26 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
     private void doArchive()
     {
         
-       try
-        {
+//       try
+//        {
             File try_open_file =new File(jtx1.getText());
             if(try_open_file.canRead())
             {
-            FindRepFile frf=new FindRepFile(jtx1.getText(),archive_type);
+             textareat_note.setVisible(false);   
+            FindRepFile frf=new FindRepFile(jtx1.getText(),archive_type,FileRep.this);
             lor=frf.doSearch();
             DispOnta();
+            textareat_note.setVisible(true);   
             }
             else
             {
                 ta.append("\n No Folder selected");
             }
-        }
-        catch(Exception fe)
-        {
-            ta.setText("error........\n"+fe.getMessage()+"   \n"+fe.toString());  
-        }     
+//        }
+//        catch(Exception fe)
+//        {
+//            ta.setText("error........\n"+fe.getMessage()+"   \n"+fe.toString());  
+//        }     
     }
 
     @Override

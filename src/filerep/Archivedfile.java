@@ -25,9 +25,17 @@ public class Archivedfile extends FileComp
     
     private HashMap<String,HashMap<Long,ArrayList<String>>> filetable1 = new HashMap<String,HashMap<Long,ArrayList<String>>>(); 
       private HashMap<String,HashMap<Long,ArrayList<String>>> filetable2= new HashMap<String,HashMap<Long,ArrayList<String>>>(); 
+      FileRep fr;
     //sk String key  extention
     // ik long key size
     // se list of paths
+      int file_cont=0;
+
+    public Archivedfile(FileRep fr)
+    {
+        this.fr=fr;
+    }
+    
 
     public void add2Map(String sk,long ik,String se)
     {
@@ -129,18 +137,27 @@ public class Archivedfile extends FileComp
                           //  System.out.println("filmatc_coun   "+filmatc_coun);
                             if(g)
                             {
-                             
+                               
                                 flist.add("-------"+ftemp1.getName()+"-----------");
+                                fr.ta.append("-------"+ftemp1.getName()+"-----------\n");
+                                file_cont++;
                                 flist.add(stemp1);
+                                 fr.ta.append("*"+file_cont+"--"+stemp1+"\n");
+                                 file_cont++;
                                 g=false;
                             }
                             
+                            
+                                
                             flist.add(stemp2);
-                            filetable2.get(strKey).get(intKey).remove(jit);
+                            fr.ta.append("*"+file_cont+"--"+stemp2+"\n");
+                            file_cont++;
+                           filetable2.get(strKey).get(intKey).remove(jit);
                             jit--;
-                        }   
                     }   
                 }
+                }
+        
         return flist;
     }
 }

@@ -21,12 +21,17 @@ public class FindRepFile extends FileComp
     String exPath;
     long sizePath;
     boolean w_woutExt;
-    Archivedfile archf=new Archivedfile();
-    Archivedfilev2 archf2=new Archivedfilev2();
-    FindRepFile(String p,boolean w_woutExt)
+     FileRep fr;
+    Archivedfile archf;
+    Archivedfilev2 archf2;;
+   
+    FindRepFile(String p,boolean w_woutExt,FileRep fr)
     {
+        this.fr=fr;
         lof.add(p);
         this.w_woutExt=w_woutExt;
+        archf=new Archivedfile(fr);
+        archf2=new Archivedfilev2(fr);
     }
     
     
