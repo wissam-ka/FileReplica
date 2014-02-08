@@ -5,10 +5,16 @@
 package filerep;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +29,8 @@ public class FindRepFile extends FileComp
     boolean w_woutExt;
      FileRep fr;
     Archivedfile archf;
-    Archivedfilev2 archf2;;
+    Archivedfilev2 archf2;
+    String data_file_name="datafile.dat";
    
     FindRepFile(String p,boolean w_woutExt,FileRep fr)
     {
@@ -31,7 +38,7 @@ public class FindRepFile extends FileComp
         lof.add(p);
         this.w_woutExt=w_woutExt;
         archf=new Archivedfile(fr);
-        archf2=new Archivedfilev2(fr);
+        archf2=new Archivedfilev2(fr,data_file_name);
     }
     
     
@@ -47,13 +54,16 @@ public class FindRepFile extends FileComp
             
             coun++;
         }
+        //dataFileCreate();
         
         if(w_woutExt)
         {
+           
             return archf2.getHashTable(); 
         }
         else
         {
+            
             return archf.getHashTable();
         }
        
@@ -109,4 +119,30 @@ public class FindRepFile extends FileComp
         }
         }
     }
+
+//    private void dataFileCreate() 
+//    {
+//        FileOutputStream fos = null;
+//        try {
+//            Properties pr=new Properties();
+//            pr.put("start","----------------- wwww");
+//            fos = new FileOutputStream(data_file_name);
+//            try {
+//                pr.store(fos,"data save");
+//            } catch (IOException ex) {
+//                Logger.getLogger(FindRepFile.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(FindRepFile.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            try {
+//                fos.close();
+//            } catch (IOException ex) {
+//                Logger.getLogger(FindRepFile.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+        
+        
+       
+//    }
 }

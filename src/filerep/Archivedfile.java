@@ -6,11 +6,13 @@ package filerep;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,11 +27,14 @@ public class Archivedfile extends FileComp
     
     private HashMap<String,HashMap<Long,ArrayList<String>>> filetable1 = new HashMap<String,HashMap<Long,ArrayList<String>>>(); 
       private HashMap<String,HashMap<Long,ArrayList<String>>> filetable2= new HashMap<String,HashMap<Long,ArrayList<String>>>(); 
+       Properties pr=new Properties();
+    String data_file_name;
       FileRep fr;
     //sk String key  extention
     // ik long key size
     // se list of paths
       int file_cont=0;
+    FileOutputStream  fos;
 
     public Archivedfile(FileRep fr)
     {
@@ -91,6 +96,8 @@ public class Archivedfile extends FileComp
             for(Long i:filetable2.get(si).keySet())
             {       
                 frl=tableOrganize(si,i,frl);    
+                
+                dataFileCreate();
             }     
         } 
          System.out.println("find allllllll");
@@ -140,9 +147,12 @@ public class Archivedfile extends FileComp
                                
                                 flist.add("-------"+ftemp1.getName()+"-----------");
                                 fr.ta.append("-------"+ftemp1.getName()+"-----------\n");
+                              
+                                 pr.put(String.valueOf(file_cont) ,"-------"+ftemp1.getName()+"-----------");
                                 file_cont++;
                                 flist.add(stemp1);
                                  fr.ta.append("*"+file_cont+"--"+stemp1+"\n");
+                                pr.put( String.valueOf(file_cont),stemp1);
                                  file_cont++;
                                 g=false;
                             }
@@ -150,6 +160,7 @@ public class Archivedfile extends FileComp
                             
                                 
                             flist.add(stemp2);
+                             pr.put( String.valueOf(file_cont),stemp2);
                             fr.ta.append("*"+file_cont+"--"+stemp2+"\n");
                             file_cont++;
                            filetable2.get(strKey).get(intKey).remove(jit);
@@ -159,5 +170,23 @@ public class Archivedfile extends FileComp
                 }
         
         return flist;
+    }
+     private void dataFileCreate() 
+     {
+       // FileOutputStream fos = null;
+        try {
+          fos = new FileOutputStream("datafile.dat");            
+            pr.store(fos,"data save");
+           
+        } catch (IOException ex) {
+            Logger.getLogger(Archivedfile.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Archivedfile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+      
     }
 }
