@@ -47,7 +47,7 @@ public class MultiThread  implements Runnable
     @Override
     public void run() 
     {
-        System.out.println("wwwwwwwwwwwwwwwwww");
+       // System.out.println("wwwwwwwwwwwwwwwwww");
         if(search_type.equals("arch"))
         {
           FindRepFile f=new FindRepFile(string_msg,arch_ty);
@@ -55,9 +55,11 @@ public class MultiThread  implements Runnable
          }
         else if(search_type.equals("normal"))
         {
+            
             FileSearch fs=new FileSearch (p1,p2,select_c);
             fs.doSearch();
-            lor=fs.searchResults();        
+            lor=fs.searchResults();
+        //    System.out.println("normal");
         }
     }
     

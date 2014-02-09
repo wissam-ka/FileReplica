@@ -102,7 +102,8 @@ public class Archivedfile extends FileComp
         } 
         // System.out.println("find allllllll");
          frl.add("Done");
-         pr.put(String.valueOf(file_cont),"Done");
+         pr.put("end1","Done");
+         pr.put("end","Done");
           dataFileCreate();
         return frl;
     }

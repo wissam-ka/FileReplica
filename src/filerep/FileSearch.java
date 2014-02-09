@@ -8,6 +8,9 @@ import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +24,9 @@ public class FileSearch
     Path pth2;
     // customized the search
     int[] s_type;
-   
+   FileOutputStream fos = null;
+   Properties pr=new Properties();
+   int file_counter=0;
     
     
     String strp="";
@@ -40,12 +45,19 @@ public class FileSearch
     
     public void doSearch()
     {
+         pr.put("end","n");
+         dataFileCreate();
         int coun=0;
         while(coun<lof.size())
         {
             fileName1(lof.get(coun));
             coun++;
+            dataFileCreate();
+            
         }   
+        pr.put("end","Done");
+        pr.put("end1","Done");
+        dataFileCreate();
     }
     public void fileName1(String sp)
     {
@@ -68,6 +80,8 @@ public class FileSearch
                     if(fc.docomp())
                     {
                         mfl.add(sp+"\\"+s[i]);
+                        pr.put(String.valueOf(file_counter),sp+"\\"+s[i]);
+                        file_counter++;
                     }
             } 
         }
@@ -83,6 +97,23 @@ public class FileSearch
     {
         return mfl;
     }
-    
+     private void dataFileCreate() 
+     {
+       // FileOutputStream fos = null;
+        try {
+          fos = new FileOutputStream("datafile.dat");            
+            pr.store(fos,"data save");
+           
+        } catch (IOException ex) {
+            Logger.getLogger(Archivedfile.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Archivedfile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+      
+    }
 }
 

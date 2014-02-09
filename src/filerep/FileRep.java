@@ -15,6 +15,7 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -231,7 +232,8 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
             dataFileDelete();
             ta.setText("searching........\n");
              MultiThread mt=new MultiThread("normal",Paths.get(jtx.getText()),Paths.get(jtx1.getText()),bgselected());
-              DisplayThread dt=new DisplayThread(FileRep.this);
+             mt.t.start();
+             DisplayThread dt=new DisplayThread(FileRep.this);
                 dt.t.start();
         }
         catch(Exception e)
@@ -340,10 +342,23 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
     }
     public void dataFileDelete()
     {
-        File f=new File("datafile.dat");
-        if(f!=null)
-        {
-            f.delete();
-        }
+        try {
+            File f=new File("datafile.dat");
+            if(f!=null)
+            {
+                f.delete();
+            }
+            FileOutputStream fos;
+           
+            Properties pr=new Properties();
+            pr.put("end","n");
+             fos=new FileOutputStream("datafile.dat");
+             pr.store(fos, "data");
+             fos.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FileRep.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+                
+        
     }
 }

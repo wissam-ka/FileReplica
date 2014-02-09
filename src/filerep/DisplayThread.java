@@ -40,12 +40,11 @@ public class DisplayThread implements Runnable
         
         while(!quit)
         {
-            System.out.println("inside while");
+          
+           // System.out.println("inside while");
             File f=new File("datafile.dat");
             if(f.length()!=oldfilelength)
             {
-                
-            
             try 
             {
                 fis=new FileInputStream("datafile.dat");
@@ -71,20 +70,19 @@ public class DisplayThread implements Runnable
                 }
             }
             DispOnta();
-            if(pr.size()>0)
-            {
-                if(((String)pr.get(String.valueOf(pr.size()-1))).equals("Done"))
+                if(((String)pr.get("end")).equals("Done"))
                 {
                 quit=true;
+                
                 }
-            }
+           
                             
         }
     }
     public void DispOnta()
     {
         
-        if(pr.isEmpty())
+        if((pr.size()==1)&&((String)pr.get("end")).equals("Done"))
             {
                 fr.ta.append("\n No files found");
             }

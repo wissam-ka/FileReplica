@@ -75,7 +75,8 @@ public class Archivedfilev2 extends FileComp
                 frl=tableOrganize(i,frl);  
                 dataFileCreate();
             }  
-             pr.put(String.valueOf(file_cont),"Done");
+            pr.put("end1","Done");
+             pr.put("end","Done");
           dataFileCreate();
         return frl;
     }
