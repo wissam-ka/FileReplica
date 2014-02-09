@@ -27,18 +27,18 @@ public class FindRepFile extends FileComp
     String exPath;
     long sizePath;
     boolean w_woutExt;
-     FileRep fr;
+  //   FileRep fr;
     Archivedfile archf;
     Archivedfilev2 archf2;
     String data_file_name="datafile.dat";
    
-    FindRepFile(String p,boolean w_woutExt,FileRep fr)
+    FindRepFile(String p,boolean w_woutExt)
     {
-        this.fr=fr;
+        //this.fr=fr;
         lof.add(p);
         this.w_woutExt=w_woutExt;
-        archf=new Archivedfile(fr);
-        archf2=new Archivedfilev2(fr,data_file_name);
+        archf=new Archivedfile();
+        archf2=new Archivedfilev2(data_file_name);
     }
     
     

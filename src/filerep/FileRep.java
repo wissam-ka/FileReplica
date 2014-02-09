@@ -227,12 +227,12 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
     private void doComp()
     {
         try
-        {               
+        {       
+            dataFileDelete();
             ta.setText("searching........\n");
-            fs=new FileSearch (Paths.get(jtx.getText()),Paths.get(jtx1.getText()),bgselected());
-            fs.doSearch();
-            lor=fs.searchResults();
-            DispOnta();
+             MultiThread mt=new MultiThread("normal",Paths.get(jtx.getText()),Paths.get(jtx1.getText()),bgselected());
+              DisplayThread dt=new DisplayThread(FileRep.this);
+                dt.t.start();
         }
         catch(Exception e)
         {
@@ -244,14 +244,17 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
         
 //       try
 //        {
+        dataFileDelete();
             File try_open_file =new File(jtx1.getText());
             if(try_open_file.canRead())
             {
-             textareat_note.setVisible(false);   
-            FindRepFile frf=new FindRepFile(jtx1.getText(),archive_type,FileRep.this);
-            lor=frf.doSearch();
-            DispOnta();
-            textareat_note.setVisible(true);   
+             //textareat_note.setVisible(false);   
+                MultiThread mt=new MultiThread("arch",jtx1.getText(),archive_type);
+                mt.t.start();
+               
+                DisplayThread dt=new DisplayThread(FileRep.this);
+                dt.t.start();
+  
             }
             else
             {
@@ -334,5 +337,13 @@ public class FileRep extends JFrame  implements ActionListener,MouseListener,Key
             FileControlFrame fcf=new FileControlFrame(lor.get(list_itr));
             fcf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
          }
+    }
+    public void dataFileDelete()
+    {
+        File f=new File("datafile.dat");
+        if(f!=null)
+        {
+            f.delete();
+        }
     }
 }

@@ -29,17 +29,17 @@ public class Archivedfile extends FileComp
       private HashMap<String,HashMap<Long,ArrayList<String>>> filetable2= new HashMap<String,HashMap<Long,ArrayList<String>>>(); 
        Properties pr=new Properties();
     String data_file_name;
-      FileRep fr;
+    //  FileRep fr;
     //sk String key  extention
     // ik long key size
     // se list of paths
       int file_cont=0;
     FileOutputStream  fos;
 
-    public Archivedfile(FileRep fr)
-    {
-        this.fr=fr;
-    }
+//    public Archivedfile(FileRep fr)
+//    {
+//        this.fr=fr;
+//    }
     
 
     public void add2Map(String sk,long ik,String se)
@@ -100,7 +100,10 @@ public class Archivedfile extends FileComp
                 dataFileCreate();
             }     
         } 
-         System.out.println("find allllllll");
+        // System.out.println("find allllllll");
+         frl.add("Done");
+         pr.put(String.valueOf(file_cont),"Done");
+          dataFileCreate();
         return frl;
     }
     
@@ -146,12 +149,12 @@ public class Archivedfile extends FileComp
                             {
                                
                                 flist.add("-------"+ftemp1.getName()+"-----------");
-                                fr.ta.append("-------"+ftemp1.getName()+"-----------\n");
+                             //   fr.ta.append("-------"+ftemp1.getName()+"-----------\n");
                               
                                  pr.put(String.valueOf(file_cont) ,"-------"+ftemp1.getName()+"-----------");
                                 file_cont++;
                                 flist.add(stemp1);
-                                 fr.ta.append("*"+file_cont+"--"+stemp1+"\n");
+                              //   fr.ta.append("*"+file_cont+"--"+stemp1+"\n");
                                 pr.put( String.valueOf(file_cont),stemp1);
                                  file_cont++;
                                 g=false;
@@ -161,7 +164,7 @@ public class Archivedfile extends FileComp
                                 
                             flist.add(stemp2);
                              pr.put( String.valueOf(file_cont),stemp2);
-                            fr.ta.append("*"+file_cont+"--"+stemp2+"\n");
+                          //  fr.ta.append("*"+file_cont+"--"+stemp2+"\n");
                             file_cont++;
                            filetable2.get(strKey).get(intKey).remove(jit);
                             jit--;
