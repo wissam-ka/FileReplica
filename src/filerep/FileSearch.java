@@ -32,7 +32,7 @@ public class FileSearch
     String strp="";
     ////
     private List<String> lof=new ArrayList<String>();
-    private List<String> mfl=new ArrayList<String>();
+    //private List<String> mfl=new ArrayList<String>();
     FileSearch(Path pth1,Path pth2,int[] s_type)
     {
         this.pth1=pth1;
@@ -79,7 +79,7 @@ public class FileSearch
                     FileCompDet fc=new FileCompDet(ff,ff1,s_type);
                     if(fc.docomp())
                     {
-                        mfl.add(sp+"\\"+s[i]);
+                  //      mfl.add(sp+"\\"+s[i]);
                         pr.put(String.valueOf(file_counter),sp+"\\"+s[i]);
                         file_counter++;
                     }
@@ -93,10 +93,10 @@ public class FileSearch
     }
     
     
-    public List<String> searchResults()
-    {
-        return mfl;
-    }
+//    public List<String> searchResults()
+//    {
+//        return mfl;
+//    }
      private void dataFileCreate() 
      {
        // FileOutputStream fos = null;

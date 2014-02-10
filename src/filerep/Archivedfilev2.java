@@ -66,7 +66,8 @@ public class Archivedfilev2 extends FileComp
             System.out.println();
         }
     
-    public ArrayList getHashTable()
+    //public ArrayList getHashTable()
+    public void getHashTable()
     {
         ArrayList<String> frl=new ArrayList<String>();
         filetable2=filetable1;
@@ -78,7 +79,7 @@ public class Archivedfilev2 extends FileComp
             pr.put("end1","Done");
              pr.put("end","Done");
           dataFileCreate();
-        return frl;
+       // return frl;
     }
     
     public ArrayList<String> tableOrganize(long intKey, ArrayList<String> flist)
@@ -119,22 +120,17 @@ public class Archivedfilev2 extends FileComp
                             {
                                
                                 flist.add("-------"+ftemp1.getName()+"-----------");
-                               // fr.ta.append("-------"+ftemp1.getName()+"-----------\n");
+                              
                                 pr.put(String.valueOf(file_cont),"-------"+ftemp1.getName()+"-----------");
                                 file_cont++;
                                 flist.add(stemp1);
-                                
-                             //    fr.ta.append("*"+file_cont+"--"+stemp1+"\n");
                                   pr.put(String.valueOf(file_cont),stemp1);
                                  file_cont++;
                                 g=false;
-                            }
-                            
-                            
-                                
+                            }      
                             flist.add(stemp2);
                             pr.put(String.valueOf(file_cont),stemp2);
-                         //   fr.ta.append("*"+file_cont+"--"+stemp2+"\n");
+                       
                             file_cont++;
                             filetable2.get(intKey).remove(jit);
                             jit--;

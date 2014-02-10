@@ -4,12 +4,10 @@
  */
 package filerep;
 
-import java.awt.*;
-import java.nio.file.Path;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
 
 /**
  *
@@ -47,7 +45,6 @@ public class MultiThread  implements Runnable
     @Override
     public void run() 
     {
-       // System.out.println("wwwwwwwwwwwwwwwwww");
         if(search_type.equals("arch"))
         {
           FindRepFile f=new FindRepFile(string_msg,arch_ty);
@@ -58,8 +55,7 @@ public class MultiThread  implements Runnable
             
             FileSearch fs=new FileSearch (p1,p2,select_c);
             fs.doSearch();
-            lor=fs.searchResults();
-        //    System.out.println("normal");
+            //lor=fs.searchResults();
         }
     }
     
